@@ -7,7 +7,8 @@ class ChatBar extends Component {
       if(event.key == 'Enter'){
         event.preventDefault();
         msg = event.target.value;
-        this.props.handleInputMsg(msg, name);
+        this.props.handleInputMsg(msg);
+        event.target.value = '';
       }
   }
   handleKeyPressName = (event) => {
@@ -15,6 +16,7 @@ class ChatBar extends Component {
         event.preventDefault();
         name = event.target.value;
         this.props.handleInputName(name);
+        event.target.value = '';
       }
   }
   render() {

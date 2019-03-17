@@ -58,11 +58,9 @@ class App extends Component {
       aMsg: true,
       nameChange: false
     }
-    // console.log("message about to be sent to WebSocket", message);
     this.socket.send(JSON.stringify(message));
   }
   render() {
-    console.log("in app", this.state)
     return (
       <div>
         <nav className="navbar">

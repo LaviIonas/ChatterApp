@@ -10,7 +10,6 @@ wss.on('connection', function connection(ws) {
         // Broadcast to everyone else.
         let incomingData = JSON.parse(data);
         incomingData.usersOnline = wss.clients.size;
-        console.log(incomingData);
         //json parse data, add key, strigify and send
         wss.clients.forEach(function each(client) {
             if (client.readyState === SocketServer.OPEN) {

@@ -1,26 +1,18 @@
-React Boilerplate
+React ChattyApp
 =====================
 
-A minimal and light dev environment for ReactJS.
+Hello fellow humans, welcome to my chatter app, where you can now talk to yourself for only 99.99 a month!
 
-### Usage
+### Let's get started
 
-Clone the boilerplate and create your own git repo.
-
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
+Clone the project into your git repository using ```git clone <COPY LINK TO REPO> <FOLDER NAME>```
 
 Install the dependencies and start the server.
 
 ```
 npm install
 npm start
-open http://localhost:3000
+open http://0.0.0.0:3000
 ```
 
 ### Static Files
@@ -31,7 +23,7 @@ For example, if you copy a file called my_image.png into the build folder you ca
 
 ### Linting
 
-This boilerplate project includes React ESLint configuration.
+This Chatty App project includes React ESLint configuration.
 
 ```
 npm run lint
@@ -43,3 +35,7 @@ npm run lint
 * Webpack
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+
+### Enjoy the application!
+
+![alt text](https://images.immediate.co.uk/volatile/sites/4/2018/08/iStock_000044061370_Medium-fa5f8aa.jpg?quality=45&crop=5px,17px,929px,400px&resize=960,413 "Cute kitty")

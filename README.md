@@ -11,9 +11,11 @@ Install the dependencies and start the server.
 
 ```
 npm install
-npm start
-open http://0.0.0.0:3000
 ```
+
+In the main project folder, run ```npm start``` to run the webserver
+In *chatty_server* run ```npm start``` to run the websocket
+Now you are good to go!
 
 ### Static Files
 

@@ -38,10 +38,12 @@ function systemMessage(event, onlineCount) {
     event: event,
     onlineCount: onlineCount
   };
+  console.log(message);
   return message;
 }
 //
 wss.on('connection', function connection(ws) {
+    console.log("Client connected; number of clients connected:", wss.clients.size);
     broadcastMessage(systemMessage("connected", wss.clients.size));
 
     ws.on('message', function incoming(data) {
@@ -54,14 +56,12 @@ wss.on('connection', function connection(ws) {
     });
 
     ws.on('close', () =>{
-        const disconnectMessage = JSON.stringify(systemMessage("disconnected", wss.clients.length));
+        const disconnectMessage = JSON.stringify(systemMessage("disconnected", wss.clients.size));
 
         // send an updated to everyone else except for the disconnected users
-        wss.clients
-            .filter(clientSocket => clientSocket !== ws)
-            .forEach(function each(client) {
-              safeSend(client, disconnectMessage);
+        wss.clients.forEach(function each(client) {
+              sendMessage(client, disconnectMessage);
             });
-        console.log('Client disconnected', wss.clients.length);
+        console.log('Client disconnected; number of clients connected:', wss.clients.size);
     });
 });

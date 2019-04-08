@@ -3,7 +3,6 @@ import Chatbar from './ChatBar.jsx';
 import NavBar from './NavBar.jsx';
 import MessageList from './MessageList.jsx';
 
-
 class App extends Component {
   constructor() {
     super();
@@ -12,10 +11,9 @@ class App extends Component {
     this.state = {
       currentUser: "Anon",
       usersOnline: 0,
-      messages: []
+      messages: {msg: []}
     }
   }
-
 //--
   componentDidMount() {
 
@@ -23,13 +21,33 @@ class App extends Component {
       let incomingMsg = JSON.parse(event.data);
 
       if(incomingMsg.type === "Message"){
-        console.log("This is what I recieve upon message: ", incomingMsg);
+        const newMessage = {
+          id: incomingMsg.id,
+          username: this.state.currentUser,
+          content: incomingMsg.content,
+          type: incomingMsg.type}
+        this.setState ({
+          messages: {
+            msg: [...this.state.messages.msg, newMessage]
+          }
+        })
       }
       if(incomingMsg.type === "Notification") {
-        console.log("This is what I recieve upon notification: ", incomingMsg);
+        const newName = {
+          id: incomingMsg.id,
+          type: incomingMsg.type,
+          content: `User ${this.state.currentUser} changed their name to ${incomingMsg.content}!`}
+        this.setState ({
+          messages: {
+            msg: [...this.state.messages.msg, newName]
+          },
+          currentUser: incomingMsg.content
+        })
       }
       if(incomingMsg.type === "Status"){
-        console.log("This is what I recieve upon status: ", incomingMsg);
+        this.setState({
+          usersOnline: incomingMsg.onlineCount
+        })
       }
     }
   }
@@ -37,8 +55,7 @@ class App extends Component {
   handleInputName = (name) => {
     let message = {
       type: "Notification",
-      username: name,
-      content: ""
+      content: name
     }
     this.socket.send(JSON.stringify(message));
   }
@@ -53,9 +70,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar usersOnline = {this.state.usersOnline}/>
         <main>
-          <MessageList messages={this.state.messages}/>
+          <MessageList messages = {this.state.messages}/>
           <Chatbar currentUser = {this.state.currentUser}
                    handleInputName = {this.handleInputName}
                    handleInputMsg = {this.handleInputMsg}/>

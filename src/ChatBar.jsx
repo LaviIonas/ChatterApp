@@ -3,6 +3,7 @@ let msg = '';
 let name = '';
 
 class ChatBar extends Component {
+  //When Key is Pressed, if value is 'Enter' send data to APP.jsx, then reset data for the placeholders
   handleKeyPressMsg = (event) => {
       if(event.key == 'Enter'){
         event.preventDefault();

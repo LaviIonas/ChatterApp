@@ -6,6 +6,8 @@ class Message extends Component {
     let content = this.props.content;
     let type = this.props.type;
 
+    //if else sequence that conditionally renders data based on message type
+
     if(type === "Message"){
       return (
           <div className = "message">

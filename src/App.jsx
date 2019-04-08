@@ -21,6 +21,7 @@ class App extends Component {
       let incomingMsg = JSON.parse(event.data);
 
       if(incomingMsg.type === "Message"){
+        //Creates new object for the message
         const newMessage = {
           id: incomingMsg.id,
           username: this.state.currentUser,
@@ -33,6 +34,7 @@ class App extends Component {
         })
       }
       if(incomingMsg.type === "Notification") {
+        //Creates new object for the notification
         const newName = {
           id: incomingMsg.id,
           type: incomingMsg.type,
@@ -51,15 +53,18 @@ class App extends Component {
       }
     }
   }
-
+  //handles incoming name change from ChatBar
   handleInputName = (name) => {
+    //Build new object and send it to the websocket
     let message = {
       type: "Notification",
       content: name
     }
     this.socket.send(JSON.stringify(message));
   }
+  //handles incoming new message from ChatBar
   handleInputMsg = (msg) => {
+    //Build new object and send it to the websocket
     let message = {
       type: "Message",
       username: this.state.currentUser,

@@ -1,35 +1,38 @@
 import React, {Component} from 'react';
 
-
-// function getClassForMessageType(messageType) {
-//   if(messageType === "Message"){
-//     return "message";
-//   } else if (messageType === "Notification") {
-//     return "name-change";
-//   } else {
-//     return "";
-//   }
-// }
-
 class Message extends Component {
   render() {
-    // const username = this.props.username || "Anonymous";
-    // let content = this.props.content;
+    const username = this.props.username || "Anonymous";
+    let content = this.props.content;
+    let type = this.props.type;
 
-
-    // style={divStyle}
-    // className={getClassForMessageType(this.props.type)}
+    if(type === "Message"){
+      return (
+          <div className = "message">
+            <span className="message-username">{username}</span>
+            <span className="message-content">
+              {`${content}`}
+              <br/>
+            </span>
+          </div>
+        );
+    } else if (type === "Notification"){
+      return (
+          <div className = "message">
+            <span className="not-content">
+              {`${content}`}
+              <br/>
+            </span>
+          </div>
+        );
+   } else {
     return (
-        <div>
-        <span className="username">{username}</span>
-        <span className="content">{content}</span>
-      </div>
+      <div>Error</div>
+      );
+   }
 
 
-    );
   }
 }
-
-
 
 export default Message;

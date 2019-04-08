@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Chatbar from './ChatBar.jsx';
+import NavBar from './NavBar.jsx';
 import MessageList from './MessageList.jsx';
-import message from './message';
-let counter = 0;
+
 
 class App extends Component {
   constructor() {
@@ -10,67 +10,56 @@ class App extends Component {
     this.socket = new WebSocket("ws://0.0.0.0:3001/");
 
     this.state = {
-      currentUser: message.currentUser.name,
-      usersOnline: 1,
-      messages: message
+      currentUser: "Anon",
+      usersOnline: 0,
+      messages: []
     }
   }
 
 //--
   componentDidMount() {
-    function getOnline (online) {
-      this.setState({usersOnline: online});
-    }
+
     this.socket.onmessage = (event) =>{
-      counter++;
       let incomingMsg = JSON.parse(event.data);
-      getOnline(incomingMsg.usersOnline);
-      if(incomingMsg.aMsg){
-        const newMessage = {id: counter, username: this.state.currentUser, content: incomingMsg.message}
-        this.setState ({
-          messages: {
-            msg: [...this.state.messages.msg, newMessage]
-          }
-        })
-      } else if (incomingMsg.nameChange){
-        const newName = {id: counter, username: incomingMsg.name, content: `-${this.state.currentUser}- changed their name to -${incomingMsg.name}-`}
-        this.setState ({
-          currentUser: incomingMsg.name,
-          messages: {
-            msg: [...this.state.messages.msg, newName]
-          }
-        });
+
+      if(incomingMsg.type === "Message"){
+        console.log("This is what I recieve upon message: ", incomingMsg);
+      }
+      if(incomingMsg.type === "Notification") {
+        console.log("This is what I recieve upon notification: ", incomingMsg);
+      }
+      if(incomingMsg.type === "Status"){
+        console.log("This is what I recieve upon status: ", incomingMsg);
       }
     }
   }
 
   handleInputName = (name) => {
     let message = {
-      name: name,
-      aMsg: false,
-      nameChange: true
+      type: "Notification",
+      username: name,
+      content: ""
     }
     this.socket.send(JSON.stringify(message));
   }
   handleInputMsg = (msg) => {
     let message = {
-      message: msg,
-      aMsg: true,
-      nameChange: false
+      type: "Message",
+      username: this.state.currentUser,
+      content: msg,
     }
     this.socket.send(JSON.stringify(message));
   }
   render() {
     return (
       <div>
-        <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
-          <span>{this.state.usersOnline}</span>
-        </nav>
-        <MessageList messages = {this.state.messages}/>
-        <Chatbar currentUser = {this.state.currentUser}
-                 handleInputName = {this.handleInputName}
-                 handleInputMsg = {this.handleInputMsg}/>
+        <NavBar />
+        <main>
+          <MessageList messages={this.state.messages}/>
+          <Chatbar currentUser = {this.state.currentUser}
+                   handleInputName = {this.handleInputName}
+                   handleInputMsg = {this.handleInputMsg}/>
+        </main>
       </div>
     );
   }

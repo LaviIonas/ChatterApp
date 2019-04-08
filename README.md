@@ -1,7 +1,7 @@
 React ChattyApp
 =====================
 
-Hello fellow humans, welcome to my chatter app, where you can now talk to yourself for only 99.99 a month!
+Hello fellow humans, welcome to my chatter app, where you can now talk to yourself for only $99.99 a month!
 
 ### Let's get started
 
@@ -35,6 +35,7 @@ npm run lint
 
 * React
 * Webpack
+* uuidV4 
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 
